@@ -1,7 +1,7 @@
-const BasicEncrptionService = require('./BasicEncryptionService');
+const BasicEncryptionService = require('./BasicEncryptionService');
 const EncryptionManager = require('./EncryptionManager');
 
-const encryptionService = new BasicEncrptionService();
+const encryptionService = new BasicEncryptionService();
 const encryptionManager = new EncryptionManager(encryptionService);
 
 if (process.argv.length > 2) {

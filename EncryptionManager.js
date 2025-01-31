@@ -1,4 +1,4 @@
-class EncryptionManagr {
+class EncryptionManager {
 
     constructor(encryptionService) {
         this.encryptionService = encryptionService;
@@ -13,4 +13,4 @@ class EncryptionManagr {
     }
 }
 
-module.exports = EncryptionManagr;
+module.exports = EncryptionManager;

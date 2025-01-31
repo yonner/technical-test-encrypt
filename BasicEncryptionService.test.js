@@ -1,10 +1,10 @@
 
 const {test, describe} = require(`node:test`);
 const assert = require(`node:assert`);
-const BasicEncrptionService = require(`./BasicEncryptionService`);
+const BasicEncryptionService = require(`./BasicEncryptionService`);
 
 describe('BasicEncryptionService', () =>{
-    const encryptionService = new BasicEncrptionService();
+    const encryptionService = new BasicEncryptionService();
 
     test('should encrypt correctly', ()=>{
 

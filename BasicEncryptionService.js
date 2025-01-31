@@ -1,6 +1,6 @@
 const EncryptionService = require('./EncryptionService');
 
-class BasicEncrptionService extends EncryptionService {
+class BasicEncryptionService extends EncryptionService {
 
     #primeNumbers = [];
 
@@ -26,8 +26,8 @@ class BasicEncrptionService extends EncryptionService {
         return originalChar.charCodeAt(0) + key.charCodeAt(0) + position;
     }
 
-    #negateDecyptedSumKeyCodeAndPosition(decyptedSum, key, position) {
-        return decyptedSum - key.charCodeAt(0) - position;
+    #negateDecryptedSumKeyCodeAndPosition(decryptedSum, key, position) {
+        return decryptedSum - key.charCodeAt(0) - position;
     }
 
     #getPrimeNumber(position, keyCharCode) {
@@ -89,7 +89,7 @@ class BasicEncrptionService extends EncryptionService {
 
             var step2 = encryptedText.charCodeAt(i) - step1;
 
-            var step3 = this.#negateDecyptedSumKeyCodeAndPosition(step2, key[decryptionKeyIndex], i);
+            var step3 = this.#negateDecryptedSumKeyCodeAndPosition(step2, key[decryptionKeyIndex], i);
 
             var step4 = this.#wrapToValidRange(step3);
     
@@ -102,7 +102,7 @@ class BasicEncrptionService extends EncryptionService {
     }
 }
 
-module.exports = BasicEncrptionService;
+module.exports = BasicEncryptionService;
 
 
 
