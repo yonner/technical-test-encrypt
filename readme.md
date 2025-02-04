@@ -27,6 +27,8 @@ and to decrypt a string from command line :-
 
     node index -d '-7T[^' 'aabb'
 
+Note: Any single quotes will need to be escaped with another quote
+
 To Run the tests you need to do :
 
     node basicencryptionservice.test.js 

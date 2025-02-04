@@ -1,12 +1,10 @@
 class EncryptionService {
 
-    encrypt(plainText, key)
-    {
+    encrypt(plainText, key) {
         throw new Error(`encrypt method must be implemented`);
     }
 
-    decrypt(encryptedText, key)
-    {
+    decrypt(encryptedText, key) {
         throw new Error(`decrypt method must be implemented`);
     }
     

@@ -18,8 +18,8 @@ if (process.argv.length > 2) {
 
 } else {
     // Example usage with encryption and decryption
-    const encryptedText = encryptionManager.encryptText("HelloWorld", "aabbcc");
-    const decryptedText = encryptionManager.decryptText(encryptedText, "aabbcc");
+    const encryptedText = encryptionManager.encryptText(`HelloWorld`, `aabbcc`);
+    const decryptedText = encryptionManager.decryptText(encryptedText, `aabbcc`);
 
     console.log(`encryptedText: ${encryptedText}`);
     console.log(`decryptedText: ${decryptedText}`);

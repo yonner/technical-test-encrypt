@@ -4,8 +4,7 @@ class BasicEncryptionService extends EncryptionService {
 
     #primeNumbers = [];
 
-    constructor()
-    {
+    constructor() {
         super();
 
         this.#generatePrimeNumbers(256);
@@ -22,17 +21,21 @@ class BasicEncryptionService extends EncryptionService {
         }
     }
 
-    #sumCharacterCodeKeyCodeAndPosition(originalChar, key, position) {
-        return originalChar.charCodeAt(0) + key.charCodeAt(0) + position;
+    #sumPrimeNumberPositionAndPlainTextValue(prime, position, plainText) {
+        return prime + position + plainText.charCodeAt(0);
     }
 
-    #negateDecryptedSumKeyCodeAndPosition(decryptedSum, key, position) {
-        return decryptedSum - key.charCodeAt(0) - position;
+    #sumEncryptionKeyValueAndPosition(key, position) {
+        return key.charCodeAt(0) + position;
     }
 
-    #getPrimeNumber(position, keyCharCode) {
-        const index = (position + keyCharCode) % this.#primeNumbers.length;
-        return this.#primeNumbers[index];
+    #negatePrimeNumberAndPositionFromEncryptedValue(encryptedTextCharacter, prime, position) {
+        return encryptedTextCharacter.charCodeAt(0) - prime - position;
+    }
+    
+    #getPrimeNumber(index) {
+        const wrappedIndex = index % this.#primeNumbers.length;
+        return this.#primeNumbers[wrappedIndex];
     }
 
     #wrapToValidRange(value) {
@@ -45,8 +48,7 @@ class BasicEncryptionService extends EncryptionService {
         return value;
     }
 
-    encrypt(plainText, key)
-    {
+    encrypt(plainText, key) {
         if (key === undefined || key.length === 0) {
             console.log("Encryption key is empty");
             return "";
@@ -57,11 +59,11 @@ class BasicEncryptionService extends EncryptionService {
     
         for (let i = 0; i < plainText.length; i++) {
             
-            var step1 = this.#sumCharacterCodeKeyCodeAndPosition(plainText[i], key[encryptionKeyIndex], i);
+            var step1 = this.#sumEncryptionKeyValueAndPosition(key[encryptionKeyIndex], i);
 
-            var step2 = this.#getPrimeNumber(i, key[encryptionKeyIndex].charCodeAt(0));
+            var step2 = this.#getPrimeNumber(step1);
 
-            var step3 = step1 + step2;
+            var step3 = this.#sumPrimeNumberPositionAndPlainTextValue(step2, i, plainText[i]);
 
             var step4 = this.#wrapToValidRange(step3);
 
@@ -73,28 +75,24 @@ class BasicEncryptionService extends EncryptionService {
         return encryptedText;
     }
 
-    decrypt(encryptedText, key)
-    {
+    decrypt(encryptedText, key) {
         if (key === undefined || key.length === 0) {
-            console.log("Encryption key is empty");
+            console.log("Decryption key is empty");
             return "";
         }
     
         let decryptedText = '';
         let decryptionKeyIndex = 0;
     
-        for (let i = 0; i < encryptedText.length; i++) {
-            
-            var step1 = this.#getPrimeNumber(i, key.charCodeAt(decryptionKeyIndex));
+        for (let i = 0; i < encryptedText.length; i++) {    
+            let step1 = this.#getPrimeNumber(i + key[decryptionKeyIndex].charCodeAt(0));
 
-            var step2 = encryptedText.charCodeAt(i) - step1;
-
-            var step3 = this.#negateDecryptedSumKeyCodeAndPosition(step2, key[decryptionKeyIndex], i);
-
-            var step4 = this.#wrapToValidRange(step3);
+            let step2 = this.#negatePrimeNumberAndPositionFromEncryptedValue(encryptedText[i], step1, i);
     
-            decryptedText += String.fromCharCode(step4);
-            
+            let step3 = this.#wrapToValidRange(step2);
+    
+            decryptedText += String.fromCharCode(step3);
+    
             decryptionKeyIndex = (decryptionKeyIndex + 1) % key.length;
         }
     
